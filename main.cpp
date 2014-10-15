@@ -1,17 +1,15 @@
-// Sample main.cpp file. Blinks the built-in LEDs, sends messages out
+// Sample main.cpp file. Blinks the built-in LED, sends messages out
 // USART 1, 2, 3, USB and turns on PWM on pin 2.
 
 #include <wirish/wirish.h>
 
 #define PWM_PIN  2
-#define LED1  27 // PB0
-#define LED2  28 // PB1
+#define LED_PIN  27 // PB0
 
 
 void setup() {
-    // Set up the LEDs to blink
-    pinMode(LED1, OUTPUT);
-    pinMode(LED2, OUTPUT);
+    // Set up the LED to blink
+    pinMode(LED_PIN, OUTPUT);
 
     // Turn on PWM on pin PWM_PIN
     pinMode(PWM_PIN, PWM);
@@ -31,17 +29,16 @@ void setup() {
 
     // Send a message out the usb virtual serial port
     SerialUSB.begin();
-    SerialUSB.println("Hello world USB"); // (you probably won't see this, because the CDC isn't enumerated yet)
+    delay(1000); // wait a while for the the CDC to enumerate
+    SerialUSB.println("Hello world USB"); 
 }
 
 void loop() {
     Serial1.println("loop serial 1");
     SerialUSB.println("loop USB");
-    digitalWrite(LED1, 0);
-    digitalWrite(LED2, 1);
+    digitalWrite(LED_PIN, 0);
     delay(500);
-    digitalWrite(LED1, 1);
-    digitalWrite(LED2, 0);
+    digitalWrite(LED_PIN, 1);
     delay(500);
 }
 
